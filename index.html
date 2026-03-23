@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Coolbrick Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--bg2:#F5F3EE;--text:#1A1A18;--text2:#5A5A56;--text3:#8A8A84;--accent:#0F6E56;--border:rgba(0,0,0,0.06);--font:'DM Sans',-apple-system,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#1A1A18;--bg2:#242420;--text:#E8E6DE;--text2:#A8A89E;--text3:#6A6A62;--accent:#5DCAA5;--border:rgba(255,255,255,0.06)}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.hub{max-width:480px;width:100%}
+.logo{font-size:28px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px}
+.logo span{color:var(--accent)}
+.sub{font-size:13px;color:var(--text3);margin-bottom:32px}
+.cards{display:flex;flex-direction:column;gap:12px}
+a.card{display:flex;align-items:center;gap:16px;background:var(--bg2);border-radius:12px;padding:16px 20px;text-decoration:none;color:var(--text);border:1px solid var(--border);transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+.icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon svg{width:22px;height:22px}
+.card-text h3{font-size:15px;font-weight:600;margin-bottom:2px}
+.card-text p{font-size:12px;color:var(--text2);line-height:1.4}
+.ib{background:#E1F5EE}.iq{background:#EEEDFE}.io{background:#E6F1FB}.ir{background:#FAECE7}
+@media(prefers-color-scheme:dark){.ib{background:#0A2E24}.iq{background:#1E1C33}.io{background:#0C2233}.ir{background:#2E1A12}}
+.divider{height:1px;background:var(--border);margin:8px 0}
+footer{text-align:center;margin-top:32px;font-size:11px;color:var(--text3)}
+</style>
+</head>
+<body>
+<div class="hub">
+<div class="logo">Coolbrick <span>Hub</span></div>
+<div class="sub">All systems — one click</div>
+<div class="cards">
+
+<a class="card" href="https://coolbrick-brain-app.vercel.app/" target="_blank">
+<div class="icon ib"><svg viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2" stroke-linecap="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6H8.2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><path d="M9 22h6"/><path d="M10 18h4v4h-4z"/></svg></div>
+<div class="card-text"><h3>Brain Dashboard</h3><p>Inbox, actions, reference, cleanup — the full GTD view</p></div>
+</a>
+
+<a class="card" href="https://coolbrick-brain-app.vercel.app/ai-queue" target="_blank">
+<div class="icon iq"><svg viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+<div class="card-text"><h3>AI Queue</h3><p>Pending, running, done, failed — executor task status</p></div>
+</a>
+
+<a class="card" href="https://alan-os-gamma.vercel.app/" target="_blank">
+<div class="icon io"><svg viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+<div class="card-text"><h3>ALAN OS</h3><p>Claude-powered chat interface — 5 modes</p></div>
+</a>
+
+<div class="divider"></div>
+
+<a class="card" href="https://alancoolbrick.github.io/rooms-tracker/" target="_blank">
+<div class="icon ir"><svg viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2" stroke-linecap="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
+<div class="card-text"><h3>Rooms Tracker</h3><p>Public listing page — one-way link only</p></div>
+</a>
+
+</div>
+<footer>Coolbrick Property Management — private launchpad<br>Do not link to this page from any public site</footer>
+</div>
+</body>
+</html>
