@@ -21,8 +21,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.06)}
 .icon svg{width:22px;height:22px}
 .card-text h3{font-size:15px;font-weight:600;margin-bottom:2px}
 .card-text p{font-size:12px;color:var(--text2);line-height:1.4}
-.ib{background:#E1F5EE}.iq{background:#EEEDFE}.io{background:#E6F1FB}.ir{background:#FAECE7}
-@media(prefers-color-scheme:dark){.ib{background:#0A2E24}.iq{background:#1E1C33}.io{background:#0C2233}.ir{background:#2E1A12}}
+.ib{background:#E1F5EE}.iq{background:#EEEDFE}.io{background:#E6F1FB}.ir{background:#FAECE7}.ik{background:#FAEEDA}.im{background:#F5F3EE}
+@media(prefers-color-scheme:dark){.ib{background:#0A2E24}.iq{background:#1E1C33}.io{background:#0C2233}.ir{background:#2E1A12}.ik{background:#2E1E08}.im{background:#242420}}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin:16px 0 4px;padding-left:4px}
 .divider{height:1px;background:var(--border);margin:8px 0}
 footer{text-align:center;margin-top:32px;font-size:11px;color:var(--text3)}
 </style>
@@ -32,6 +33,8 @@ footer{text-align:center;margin-top:32px;font-size:11px;color:var(--text3)}
 <div class="logo">Coolbrick <span>Hub</span></div>
 <div class="sub">All systems — one click</div>
 <div class="cards">
+
+<div class="section-label">Apps</div>
 
 <a class="card" href="https://coolbrick-brain-app.vercel.app/" target="_blank">
 <div class="icon ib"><svg viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2" stroke-linecap="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6H8.2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><path d="M9 22h6"/><path d="M10 18h4v4h-4z"/></svg></div>
@@ -49,6 +52,20 @@ footer{text-align:center;margin-top:32px;font-size:11px;color:var(--text3)}
 </a>
 
 <div class="divider"></div>
+<div class="section-label">Operations</div>
+
+<a class="card" href="kanban.html">
+<div class="icon ik"><svg viewBox="0 0 24 24" fill="none" stroke="#BA7517" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/></svg></div>
+<div class="card-text"><h3>Work Board</h3><p>Kanban — done, in progress, to do, blocked</p></div>
+</a>
+
+<a class="card" href="roadmap.html">
+<div class="icon im"><svg viewBox="0 0 24 24" fill="none" stroke="#5A5A56" stroke-width="2" stroke-linecap="round"><path d="M12 20V4"/><path d="M5 12l7-8 7 8"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg></div>
+<div class="card-text"><h3>Roadmap</h3><p>Brain + ALAN OS — what’s done, what’s next</p></div>
+</a>
+
+<div class="divider"></div>
+<div class="section-label">Public</div>
 
 <a class="card" href="https://alancoolbrick.github.io/rooms-tracker/" target="_blank">
 <div class="icon ir"><svg viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2" stroke-linecap="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
