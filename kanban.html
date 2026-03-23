@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coolbrick × Claude — Work Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f5f0e8;--paper:#ede8de;--brick:#c0432a;--navy:#1a2640;--charcoal:#2c2c2c;--ash:#6b6b6b;--mist:#b8b2a8;--card-bg:#faf7f2;--done-col:#2a5c45;--prog-col:#c0432a;--todo-col:#1a2640;--blocked-col:#7a5c1e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--charcoal);font-family:'Outfit',sans-serif;min-height:100vh}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");z-index:9999}
+.back-link{position:absolute;top:12px;left:16px;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mist);text-decoration:none;z-index:10;letter-spacing:.04em}
+.back-link:hover{color:#fff}
+.masthead{background:var(--navy);padding:2.5rem 2rem 2rem;color:#fff;position:relative}
+.masthead-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.masthead h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.5px;line-height:1}
+.masthead h1 span{color:#6ec6a0}
+.masthead-sub{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mist);margin-top:.4rem;letter-spacing:.05em;text-transform:uppercase}
+.scoreboard{display:flex;gap:1.5rem;flex-wrap:wrap}
+.score-item{text-align:center}
+.score-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;line-height:1}
+.score-num.done{color:#6ec6a0}.score-num.prog{color:#f0826a}.score-num.todo{color:#8fa8c8}.score-num.blocked{color:#d4a843}
+.score-label{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--mist);text-transform:uppercase;letter-spacing:.08em}
+.progress-strip{height:6px;display:flex;max-width:1400px;margin:0 auto}
+.progress-strip div{transition:width .4s}
+.ps-done{background:var(--done-col)}.ps-prog{background:var(--prog-col)}.ps-todo{background:var(--todo-col)}.ps-blocked{background:var(--blocked-col)}
+.filters{background:var(--paper);padding:1rem 2rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center}
+.fbtn{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .8rem;border-radius:3px;border:1px solid var(--mist);background:transparent;color:var(--ash);cursor:pointer;transition:all .15s}
+.fbtn:hover{border-color:var(--charcoal);color:var(--charcoal)}
+.fbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.board{max-width:1400px;margin:2rem auto;padding:0 1.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+@media(max-width:1100px){.board{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.board{grid-template-columns:1fr}}
+.column{position:relative;min-height:200px}
+.col-head{display:flex;align-items:center;gap:.6rem;padding-bottom:.6rem;margin-bottom:1rem}
+.col-head.done{border-bottom:3px solid var(--done-col)}.col-head.progress{border-bottom:3px solid var(--prog-col)}.col-head.todo{border-bottom:3px solid var(--todo-col)}.col-head.blocked{border-bottom:3px solid var(--blocked-col)}
+.col-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.col-count{font-family:'Space Mono',monospace;font-size:.65rem;padding:.2rem .5rem;border-radius:3px;color:#fff}
+.col-count.done{background:var(--done-col)}.col-count.progress{background:var(--prog-col)}.col-count.todo{background:var(--todo-col)}.col-count.blocked{background:var(--blocked-col)}
+.col-ghost{position:absolute;top:3rem;left:0;font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:var(--charcoal);opacity:.03;pointer-events:none;white-space:nowrap;text-transform:uppercase}
+.card{background:var(--card-bg);border-radius:6px;padding:.9rem 1rem;margin-bottom:.75rem;border-left:4px solid var(--mist);transition:transform .15s,box-shadow .15s;cursor:default;animation:slideIn .3s ease both}
+.card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.card.done{border-left-color:var(--done-col)}.card.progress{border-left-color:var(--prog-col)}.card.todo{border-left-color:var(--todo-col)}.card.blocked{border-left-color:var(--blocked-col)}
+.card-tag{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .4rem;border-radius:2px;display:inline-block;margin-bottom:.4rem}
+.tag-tech{background:#dde8f0;color:#1a2640}.tag-ai{background:#e8ddf0;color:#4a1a64}.tag-property{background:#ddf0e4;color:#1a4a2a}.tag-skills{background:#f0eddd;color:#5c4a1a}.tag-tasks{background:#f0dddd;color:#641a1a}.tag-accounts{background:#ddf0f0;color:#1a4a4a}.tag-personal{background:#f0dde8;color:#641a4a}
+.card-title{font-weight:500;font-size:.85rem;line-height:1.35;margin-bottom:.3rem}
+.card-meta{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--mist);line-height:1.4}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+footer{background:var(--navy);color:var(--mist);padding:2rem;text-align:center;margin-top:3rem}
+footer .pct{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:#6ec6a0}
+footer p{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-top:.3rem}
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">&larr; Hub</a>
+<div class="masthead"><div class="masthead-inner">
+<div><h1>Coolbrick <span>&times;</span> Claude</h1><div class="masthead-sub">Work Board &mdash; 23 March 2026</div></div>
+<div class="scoreboard">
+<div class="score-item"><div class="score-num done" id="s-done">0</div><div class="score-label">Done</div></div>
+<div class="score-item"><div class="score-num prog" id="s-prog">0</div><div class="score-label">Active</div></div>
+<div class="score-item"><div class="score-num todo" id="s-todo">0</div><div class="score-label">To Do</div></div>
+<div class="score-item"><div class="score-num blocked" id="s-blocked">0</div><div class="score-label">Paused</div></div>
+</div></div></div>
+<div class="progress-strip"><div class="ps-done" id="p-done"></div><div class="ps-prog" id="p-prog"></div><div class="ps-todo" id="p-todo"></div><div class="ps-blocked" id="p-blocked"></div></div>
+<div class="filters" id="filters"></div>
+<div class="board">
+<div class="column"><div class="col-head done"><span class="col-title">Done</span><span class="col-count done" id="c-done">0</span></div><div class="col-ghost">Done</div><div id="col-done"></div></div>
+<div class="column"><div class="col-head progress"><span class="col-title">In Progress</span><span class="col-count progress" id="c-prog">0</span></div><div class="col-ghost">Active</div><div id="col-prog"></div></div>
+<div class="column"><div class="col-head todo"><span class="col-title">To Do</span><span class="col-count todo" id="c-todo">0</span></div><div class="col-ghost">To Do</div><div id="col-todo"></div></div>
+<div class="column"><div class="col-head blocked"><span class="col-title">Blocked / Paused</span><span class="col-count blocked" id="c-blocked">0</span></div><div class="col-ghost">Paused</div><div id="col-blocked"></div></div>
+</div>
+<footer><div class="pct" id="pct">0%</div><p>Complete &mdash; 23 March 2026</p></footer>
+<script>
+const tasks=[
+{col:"done",tag:"ai",tagLabel:"AI",title:"Self-improving brain audit (/audit)",meta:"metaReview.js - corpus diagnostics + Claude analysis - health score - tag recommendations - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Security hardening - RLS + RPC lockdown",meta:"Removed anon DELETE - restricted INSERT - column protection trigger - locked RPCs to service_role - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"security_audit() RPC",meta:"Checks RLS, anon policies, dangerous RPCs, column protection - callable by service_role only - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Weekly meta-review cron (Sun 09:30 UTC)",meta:"scheduler.js - runs after weekly review - stores to brain - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"revision_count column + trigger",meta:"Auto-increments on substantive edits - signals poor classification - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Diagnostic views (v_brain_health etc.)",meta:"v_brain_health - v_tag_health - v_stale_items - v_most_revised - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Tag cleanup - merge alan-brain, delete 7 singletons",meta:"3 items re-tagged - 6 items cleaned - 5 tasks promoted to next - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"schema_sync_check() RPC created",meta:"GitHub Action sync-check now has a real RPC to call - 23 Mar"},
+{col:"done",tag:"skills",tagLabel:"Skills",title:"Brain control manual (HTML)",meta:"All commands, scheduled outputs, /save flow, doer classification, executor handlers, property tags - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Architecture diagram (SVG)",meta:"5-tier visualisation: capture - routing - processing - AI - storage - automation - 23 Mar"},
+{col:"done",tag:"skills",tagLabel:"Skills",title:"AGENTS.md comprehensive update",meta:"Meta-review docs, views, triggers, security section, updated roadmap - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"AI executor - 6 handlers, live on Railway",meta:"research - draft - embed - notify - cleanup - generic - 60s poll loop - 23 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"AI Queue dashboard (/ai-queue)",meta:"Vercel page showing pending/running/done/failed AI tasks - 30s auto-refresh - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Executor tag routing in classifier",meta:"research/draft/embed/notify/cleanup tags auto-assigned on /save - 23 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Scheduler dedup guard",meta:"schedulerInitialised flag prevents 5x firing on Railway restart - 23 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Dashboard RLS fix - anon write policies",meta:"anon INSERT/UPDATE added so dashboard writes work - then tightened same evening - 23 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Duplicate Railway services deleted",meta:"reliable-vitality, heartfelt-renewal, scintillating-dream removed - saving compute - 23 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"API key rotation (OpenAI + Anthropic)",meta:"Both keys exposed in chat, auto-revoked, rotated in Railway - 23 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Chat mode - keyword fallback + threshold tuning",meta:"Lowered similarity to 0.2 - ILIKE keyword search when vector returns nothing - 22 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"coolbrick-brain-ops skill created",meta:"Infrastructure reference card - schema, functions, diagnostics, troubleshooting - 22 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Orphaned search_brain function dropped",meta:"Old version pointing at brain_entries removed - only items version remains - 22 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Chat mode (conversational RAG)",meta:"chatHandler.js - embed - vector search - Claude synthesis - WhatsApp reply - 22 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Voice note transcription (Whisper)",meta:"Audio - OpenAI Whisper - transcript - chat mode - 22 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Vercel production branch setup",meta:"main = preview only - production = live - PR workflow - 22 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"19 reference entries bulk-inserted",meta:"5 Areas - 6 People - 4 Projects - 4 Ideas - deduped - 22 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Supabase security advisory fixes",meta:"RLS enabled on all 3 tables - function search_path pinned - view security fixed - 21 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"WhatsApp agent deployed on Railway",meta:"coolbrick-agent - Twilio webhook - persistent Node.js - ~$5/mo - 17 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"/save /brief /zoom commands",meta:"Classify+embed - semantic search - Cosmic Zoom 4-quadrant - 17 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Daily digest + weekly review crons",meta:"7am UTC daily - Sun 9am UTC weekly - Cosmic Zoom on macro items - 17 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"512-dim embedding migration",meta:"1536 to 512 dims - text-embedding-3-small with dimensions param - all items re-embedded - 19 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Doer classification (human/ai)",meta:"Column + CHECK constraint - classifier prompt updated - flag_ai_tasks trigger - 19 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Property tagging in classifier",meta:"9 property slugs auto-detected from /save content - 21 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"ALAN OS v3 deployed",meta:"alan-os-gamma.vercel.app - Claude chat panel - 5 modes - API proxy - 19 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Coolbrick Brain dashboard deployed",meta:"coolbrick-brain-app.vercel.app - Inbox/Actions/Reference/Cleanup - Next.js - 17 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Keep-alive ping (4-hourly)",meta:"Prevents Supabase free-tier auto-pause - 20 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"GitHub Action sync-check workflow",meta:"Runs on push - queries schema - compares AGENTS.md - WhatsApp alert on drift - 20 Mar"},
+{col:"done",tag:"skills",tagLabel:"Skills",title:"Three-layer workflow established",meta:"Claude.ai (architect) - Antigravity (builder) - Cowork (operator) - AGENTS.md handoff - 19 Mar"},
+{col:"done",tag:"skills",tagLabel:"Skills",title:"Knowledge layer architecture doc",meta:"knowledge_chunks + transactions + timeline_events design - Antigravity kickoff - 19 Mar"},
+{col:"done",tag:"skills",tagLabel:"Skills",title:"Burkeman Mode spec + kickoff",meta:"Anti-optimisation weekly review - /burkeman command - Opus model - 19 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"COHO API key obtained",meta:"Bearer token - API user ClaudeCOHO - REST endpoints mapped - 21 Mar"},
+{col:"done",tag:"ai",tagLabel:"AI",title:"Technology cost-benefit analysis (Jack Roberts)",meta:"19 technologies scored - bubble chart + detail table - sweet spot items identified - 22 Mar"},
+{col:"done",tag:"skills",tagLabel:"Skills",title:"Vanishing inserts investigation + fix",meta:"Root cause: Supabase free-tier auto-pause - keep-alive ping deployed - 21 Mar"},
+{col:"done",tag:"tech",tagLabel:"Tech",title:"Coolbrick Hub launched",meta:"GitHub Pages - launchpad for all apps - kanban + roadmap - 23 Mar"},
+{col:"progress",tag:"tasks",tagLabel:"Tasks",title:"Inbox triage - 26 items remaining",meta:"Down from 48 - needs weekly 20-min inbox zero pass - brain audit flagged this"},
+{col:"progress",tag:"ai",tagLabel:"AI",title:"39 untagged items in brain",meta:"33% of corpus - degrading filtered views and automation - audit flagged"},
+{col:"progress",tag:"ai",tagLabel:"AI",title:"2 items missing embeddings",meta:"Invisible to semantic search - need re-embed or re-save"},
+{col:"progress",tag:"tasks",tagLabel:"Tasks",title:"5 tasks with no next_actions",meta:"Promoted to next status - still need concrete actions assigned"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Auto-embed executor-completed tasks",meta:"Research/draft handlers should trigger embed after writing content"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Increase WhatsApp result truncation limit",meta:"Currently 500 chars - truncates useful executor output"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Auto-execute trivial audit fixes",meta:"Singleton tag cleanup, archive stale items - needs WhatsApp confirmation flow"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Historical health_score trend",meta:"Compare audit entries over time - detect improvement or regression"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Classification feedback loop",meta:"High revision_count - adjust classifier prompt automatically"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"ALAN OS vs Brain Dashboard - merge decision",meta:"Compare interfaces - decide by 30 Mar - scheduled in brain"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Claude session to Supabase auto-push",meta:"Auto-save reference entries after working sessions"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"PDF ingestion pipeline",meta:"Extract - Claude structures to JSON - embed - store with source type pdf"},
+{col:"todo",tag:"tech",tagLabel:"Tech",title:"Build COHO MCP server",meta:"Wrap REST API - replace browser automation - faster + more reliable"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"/brief uses items + core_memory together",meta:"Currently only searches items - core_memory has identity/property/contact context"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Cross-reference People - Areas - Projects",meta:"Intelligence layer - surface related context across types"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Burkeman Mode implementation",meta:"/burkeman command + Sun 6pm cron - spec + kickoff ready - needs Antigravity build"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Tenant triage bot via COHO messaging",meta:"Awaiting COHO messaging API response - RAG against property manuals"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"YouTube auto-vectorise on /save with URL",meta:"Detect YouTube URLs - extract transcript - embed - store"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"/remind command - natural language reminders",meta:"Parse dates from text - create scheduled items - WhatsApp notification"},
+{col:"todo",tag:"ai",tagLabel:"AI",title:"Knowledge layer build (Gmail, Calendar, transactions)",meta:"Architecture doc ready - knowledge_chunks + transactions tables - batch ingestion"},
+{col:"todo",tag:"property",tagLabel:"Property",title:"COHO maintenance auto-triage via API",meta:"Classify incoming maintenance requests - route to John - scheduled in brain"},
+{col:"todo",tag:"accounts",tagLabel:"Accounts",title:"Investigate Hammock API access",meta:"No public API docs - email hello@usehammock.com"},
+{col:"blocked",tag:"tech",tagLabel:"Tech",title:"Vercel MCP connection",meta:"Package name issues - parked indefinitely"},
+{col:"blocked",tag:"tech",tagLabel:"Tech",title:"Railway MCP token expired",meta:"Needs railway login on Mac - Claude Desktop only"},
+{col:"blocked",tag:"tech",tagLabel:"Tech",title:"Sync-check workflow - active to archived bug",meta:"GitHub Action still checks for active status - needs manual edit"},
+{col:"blocked",tag:"accounts",tagLabel:"Accounts",title:"Hammock API access",meta:"Unknown if API exists - browser automation only for now"},
+{col:"blocked",tag:"property",tagLabel:"Property",title:"COHO messaging API - awaiting response",meta:"Email sent to support contact - needed for tenant triage bot"},
+];
+const tagColors={tech:'tag-tech',ai:'tag-ai',property:'tag-property',skills:'tag-skills',tasks:'tag-tasks',accounts:'tag-accounts',personal:'tag-personal'};
+const colMap={done:'col-done',progress:'col-prog',todo:'col-todo',blocked:'col-blocked'};
+let activeFilter='all';
+function render(){
+  const filtered=activeFilter==='all'?tasks:tasks.filter(t=>t.tag===activeFilter);
+  Object.values(colMap).forEach(id=>document.getElementById(id).innerHTML='');
+  const counts={done:0,progress:0,todo:0,blocked:0};
+  filtered.forEach((t,i)=>{counts[t.col]++;const el=document.getElementById(colMap[t.col]);const card=document.createElement('div');card.className=`card ${t.col}`;card.style.animationDelay=`${i*30}ms`;card.innerHTML=`<div class="card-tag ${tagColors[t.tag]}">${t.tagLabel}</div><div class="card-title">${t.title}</div><div class="card-meta">${t.meta}</div>`;el.appendChild(card);});
+  document.getElementById('s-done').textContent=counts.done;document.getElementById('s-prog').textContent=counts.progress;document.getElementById('s-todo').textContent=counts.todo;document.getElementById('s-blocked').textContent=counts.blocked;
+  document.getElementById('c-done').textContent=counts.done;document.getElementById('c-prog').textContent=counts.progress;document.getElementById('c-todo').textContent=counts.todo;document.getElementById('c-blocked').textContent=counts.blocked;
+  const total=counts.done+counts.progress+counts.todo+counts.blocked;const pct=total?Math.round(counts.done/total*100):0;
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('p-done').style.width=(counts.done/total*100)+'%';document.getElementById('p-prog').style.width=(counts.progress/total*100)+'%';document.getElementById('p-todo').style.width=(counts.todo/total*100)+'%';document.getElementById('p-blocked').style.width=(counts.blocked/total*100)+'%';
+}
+function initFilters(){
+  const tags=[{key:'all',label:'All'},...[...new Set(tasks.map(t=>t.tag))].map(t=>({key:t,label:tasks.find(x=>x.tag===t).tagLabel}))];
+  const bar=document.getElementById('filters');
+  tags.forEach(t=>{const btn=document.createElement('button');btn.className='fbtn'+(t.key==='all'?' active':'');btn.textContent=t.label;btn.onclick=()=>{document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeFilter=t.key;render();};bar.appendChild(btn);});
+}
+initFilters();render();
+</script>
+</body>
+</html>
