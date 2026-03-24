@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coolbrick Brain — Control Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FDFCFA; --bg2: #F5F3EE; --bg3: #EDEAE3;
+    --text: #1A1A18; --text2: #5A5A56; --text3: #8A8A84;
+    --accent: #0F6E56; --accent-light: #E1F5EE;
+    --coral: #D85A30; --coral-light: #FAECE7;
+    --blue: #185FA5; --blue-light: #E6F1FB;
+    --amber: #BA7517; --amber-light: #FAEEDA;
+    --purple: #534AB7; --purple-light: #EEEDFE;
+    --red: #A32D2D; --red-light: #FCEBEB;
+    --border: rgba(0,0,0,0.08);
+    --font: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1A18; --bg2: #242420; --bg3: #2E2E2A;
+      --text: #E8E6DE; --text2: #A8A89E; --text3: #6A6A62;
+      --accent: #5DCAA5; --accent-light: #0A2E24;
+      --coral: #F0997B; --coral-light: #2E1A12;
+      --blue: #85B7EB; --blue-light: #0C2233;
+      --amber: #FAC775; --amber-light: #2E1E08;
+      --purple: #AFA9EC; --purple-light: #1E1C33;
+      --red: #F09595; --red-light: #2E1313;
+      --border: rgba(255,255,255,0.08);
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font); background: var(--bg); color: var(--text);
+    line-height: 1.65; max-width: 720px; margin: 0 auto; padding: 24px 20px 80px;
+  }
+  a.back{font-size:13px;color:var(--text3);text-decoration:none;display:inline-block;margin-bottom:20px}
+  a.back:hover{color:var(--text)}
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.5px; }
+  .subtitle { font-size: 14px; color: var(--text3); margin-bottom: 32px; }
+  h2 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text3); margin: 40px 0 16px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; }
+  .cmd-grid { display: flex; flex-direction: column; gap: 12px; }
+  .cmd-card {
+    background: var(--bg2); border-radius: var(--radius); padding: 16px 18px;
+    border-left: 4px solid var(--accent); transition: transform 0.15s;
+  }
+  .cmd-card:hover { transform: translateX(2px); }
+  .cmd-card.coral { border-left-color: var(--coral); }
+  .cmd-card.blue { border-left-color: var(--blue); }
+  .cmd-card.amber { border-left-color: var(--amber); }
+  .cmd-card.purple { border-left-color: var(--purple); }
+  .cmd-name {
+    font-family: var(--mono); font-size: 16px; font-weight: 500;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .cmd-card.coral .cmd-name { color: var(--coral); }
+  .cmd-card.blue .cmd-name { color: var(--blue); }
+  .cmd-card.amber .cmd-name { color: var(--amber); }
+  .cmd-card.purple .cmd-name { color: var(--purple); }
+  .cmd-desc { font-size: 14px; color: var(--text2); }
+  .cmd-example {
+    font-family: var(--mono); font-size: 12px; background: var(--bg3);
+    padding: 6px 10px; border-radius: 6px; margin-top: 8px; color: var(--text2);
+    display: inline-block;
+  }
+  .info-row { display: flex; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+  .info-chip {
+    font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .chip-green { background: var(--accent-light); color: var(--accent); }
+  .chip-amber { background: var(--amber-light); color: var(--amber); }
+  .chip-coral { background: var(--coral-light); color: var(--coral); }
+  .chip-blue { background: var(--blue-light); color: var(--blue); }
+  .chip-purple { background: var(--purple-light); color: var(--purple); }
+  .schedule-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .schedule-table th {
+    text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text3); padding: 8px 12px; border-bottom: 1px solid var(--border);
+  }
+  .schedule-table td {
+    padding: 10px 12px; font-size: 14px; border-bottom: 1px solid var(--border);
+  }
+  .schedule-table td:first-child { font-family: var(--mono); font-size: 13px; color: var(--accent); font-weight: 500; }
+  .flow-section {
+    background: var(--bg2); border-radius: var(--radius); padding: 20px;
+    margin: 16px 0; position: relative;
+  }
+  .flow-step { display: flex; align-items: flex-start; gap: 12px; margin: 10px 0; }
+  .flow-num {
+    width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
+    color: white; font-size: 12px; font-weight: 700; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .flow-step.coral .flow-num { background: var(--coral); }
+  .flow-step p { font-size: 14px; color: var(--text2); }
+  .tip-box {
+    background: var(--amber-light); border-radius: 8px; padding: 12px 16px;
+    margin: 16px 0; font-size: 13px; color: var(--amber);
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .tag {
+    font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 4px;
+    background: var(--bg3); color: var(--text2);
+  }
+  footer { margin-top: 48px; text-align: center; color: var(--text3); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">&larr; Back to Hub</a>
+
+<h1>Coolbrick Brain</h1>
+<p class="subtitle">Control manual — v2.0 · 23 March 2026</p>
+
+<div class="info-row">
+  <span class="info-chip chip-green">Railway agent</span>
+  <span class="info-chip chip-blue">Supabase + pgvector</span>
+  <span class="info-chip chip-amber">WhatsApp-first</span>
+  <span class="info-chip chip-purple">Claude Sonnet 4.6</span>
+  <span class="info-chip chip-coral">Self-improving</span>
+</div>
+
+<h2>Commands</h2>
+
+<div class="cmd-grid">
+  <div class="cmd-card">
+    <div class="cmd-name">/save [notes]</div>
+    <div class="cmd-desc">Classify, embed, and store one or more items. Claude extracts entries, assigns type/status/tags/doer, generates 512-dim embedding, inserts to Supabase. If doer=ai, the executor picks it up within 60 seconds.</div>
+    <div class="cmd-example">/save Meeting with Dave re: fire doors at 42 Friarn. Quote due Friday. John to arrange access.</div>
+  </div>
+
+  <div class="cmd-card blue">
+    <div class="cmd-name">/brief [topic]</div>
+    <div class="cmd-desc">Semantic search the brain for a topic. Embeds your query, searches via pgvector, returns the top 6 matches formatted as a context block you can paste into a Claude session.</div>
+    <div class="cmd-example">/brief fire doors</div>
+  </div>
+
+  <div class="cmd-card purple">
+    <div class="cmd-name">/zoom [topic]</div>
+    <div class="cmd-desc">Cosmic Zoom analysis. Runs a 4-quadrant framework (micro-concrete, micro-speculative, macro-concrete, macro-speculative) against the brain, then surfaces the tension where micro and macro frames contradict.</div>
+    <div class="cmd-example">/zoom Should I sell 42 Friarn?</div>
+  </div>
+
+  <div class="cmd-card coral">
+    <div class="cmd-name">/audit</div>
+    <div class="cmd-desc">Run the self-improving brain audit. Gathers 12 corpus diagnostics plus security posture checks, sends to Claude for analysis, returns a health score (0-100) and ranked findings. Results stored back in the brain.</div>
+    <div class="cmd-example">/audit</div>
+  </div>
+
+  <div class="cmd-card amber">
+    <div class="cmd-name">/review</div>
+    <div class="cmd-desc">Full weekly review. Generates a summary of brain activity, then runs Cosmic Zoom on the top macro items from the past 7 days. Also fires automatically Sunday 9am UTC.</div>
+    <div class="cmd-example">/review</div>
+  </div>
+
+  <div class="cmd-card">
+    <div class="cmd-name">(any text)</div>
+    <div class="cmd-desc">Chat mode. Conversational RAG against the brain. Embeds your message, retrieves matching items, answers based only on what's in the brain. Suggests /save if context is thin.</div>
+    <div class="cmd-example">What do I know about HMO Article 4?</div>
+  </div>
+
+  <div class="cmd-card">
+    <div class="cmd-name">(voice note)</div>
+    <div class="cmd-desc">Transcribes via OpenAI Whisper, then routes the transcript to chat mode.</div>
+  </div>
+</div>
+
+<h2>Scheduled outputs</h2>
+
+<table class="schedule-table">
+  <thead><tr><th>Schedule</th><th>Time (UTC)</th><th>What</th></tr></thead>
+  <tbody>
+    <tr><td>Daily digest</td><td>07:00 daily</td><td>Summary of brain activity to WhatsApp</td></tr>
+    <tr><td>Weekly review</td><td>09:00 Sunday</td><td>Full review + Cosmic Zoom on macro items</td></tr>
+    <tr><td>Brain audit</td><td>09:30 Sunday</td><td>Corpus health + security posture</td></tr>
+    <tr><td>Keep-alive</td><td>Every 4 hours</td><td>Supabase ping (prevents free-tier auto-pause)</td></tr>
+  </tbody>
+</table>
+
+<h2>How /save works</h2>
+
+<div class="flow-section">
+  <div class="flow-step"><div class="flow-num">1</div><p>WhatsApp message hits Twilio webhook &rarr; Railway agent receives it</p></div>
+  <div class="flow-step"><div class="flow-num">2</div><p>Claude Sonnet classifies: type, title, content, tags (incl. property slugs), doer (human/ai), 3 next_actions</p></div>
+  <div class="flow-step"><div class="flow-num">3</div><p>OpenAI generates 512-dim embedding from the content</p></div>
+  <div class="flow-step"><div class="flow-num">4</div><p>Item inserted to Supabase items table with status=inbox</p></div>
+  <div class="flow-step coral"><div class="flow-num">5</div><p>If doer=ai &rarr; trigger sets execution_status=pending &rarr; executor claims within 60s &rarr; handler runs &rarr; result via WhatsApp</p></div>
+</div>
+
+<h2>Item types</h2>
+<div class="info-row">
+  <span class="info-chip chip-green">task</span>
+  <span class="info-chip chip-blue">project</span>
+  <span class="info-chip chip-amber">people</span>
+  <span class="info-chip chip-purple">idea</span>
+  <span class="info-chip chip-coral">admin</span>
+  <span class="info-chip" style="background:var(--bg3);color:var(--text2)">area</span>
+</div>
+
+<h2>Item statuses</h2>
+<div class="info-row">
+  <span class="info-chip chip-amber">inbox</span>
+  <span class="info-chip chip-green">next</span>
+  <span class="info-chip chip-coral">focus</span>
+  <span class="info-chip chip-blue">waiting</span>
+  <span class="info-chip chip-purple">scheduled</span>
+  <span class="info-chip" style="background:var(--bg3);color:var(--text2)">someday</span>
+  <span class="info-chip chip-green">done</span>
+  <span class="info-chip" style="background:var(--bg3);color:var(--text2)">archived</span>
+</div>
+
+<h2>Doer classification</h2>
+<div class="flow-section">
+  <h3 style="margin-top:0">doer: human</h3>
+  <p style="font-size:14px;color:var(--text2);margin:4px 0 12px">Tasks requiring Alan's physical presence, a phone call, a financial decision, a signature, a viewing, or access to something only he has.</p>
+  <h3>doer: ai</h3>
+  <p style="font-size:14px;color:var(--text2);margin:4px 0 0">Tasks an AI agent can execute autonomously &mdash; web searches, property portal lookups, price comparisons, data queries, drafting emails/letters, calculations, research, summarising.</p>
+</div>
+
+<h2>AI executor handlers</h2>
+
+<table class="schedule-table">
+  <thead><tr><th>Tag</th><th>Handler</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td>research</td><td>researchHandler</td><td>Claude Sonnet research, writes result to item</td></tr>
+    <tr><td>draft</td><td>draftHandler</td><td>Claude Sonnet drafting (emails, letters, notices)</td></tr>
+    <tr><td>embed</td><td>embedHandler</td><td>Generates 512-dim embedding (silent)</td></tr>
+    <tr><td>notify</td><td>notifyHandler</td><td>Sends WhatsApp alert with task content</td></tr>
+    <tr><td>cleanup</td><td>cleanupHandler</td><td>Dedup + archive old done items</td></tr>
+    <tr><td>(none)</td><td>genericHandler</td><td>Claude catch-all for untagged tasks</td></tr>
+  </tbody>
+</table>
+
+<div class="tip-box">
+  Executor retries up to 3 times with exponential backoff (60s, 300s, 900s). After 3 failures: status=failed, WhatsApp alert sent. Safety rails: no financial transactions, no destructive DB ops, only Claude/OpenAI/Twilio APIs.
+</div>
+
+<h2>Property tags</h2>
+<p style="font-size:14px;color:var(--text2);margin-bottom:8px">The classifier auto-tags property mentions. Use these slugs when saving or searching.</p>
+<div class="tag-list">
+  <span class="tag">34-bristol-road</span><span class="tag">111-bristol-road</span><span class="tag">42-friarn</span><span class="tag">44-cranleigh</span><span class="tag">longfield-house</span><span class="tag">63-st-mary</span><span class="tag">60-taunton-road</span><span class="tag">88-barclay</span><span class="tag">14-willow-grove</span>
+</div>
+
+<h2>Brain audit (self-improving)</h2>
+
+<div class="flow-section">
+  <p style="font-size:13px;font-weight:600;margin-bottom:8px">Diagnostics checked:</p>
+  <div class="tag-list">
+    <span class="tag">total items</span><span class="tag">missing embeddings</span><span class="tag">type distribution</span><span class="tag">status distribution</span><span class="tag">source distribution</span><span class="tag">tag frequency</span><span class="tag">singleton tags</span><span class="tag">stale items (30d+)</span><span class="tag">tasks without next_actions</span><span class="tag">untagged items</span><span class="tag">duplicate titles</span><span class="tag">AI task status</span><span class="tag">revision count</span><span class="tag">area/project distribution</span>
+  </div>
+  <p style="font-size:13px;font-weight:600;margin:12px 0 4px">Security checks:</p>
+  <div class="tag-list">
+    <span class="tag">RLS enabled</span><span class="tag">anon policies</span><span class="tag">dangerous RPCs</span><span class="tag">column protection</span><span class="tag">SECURITY DEFINER count</span>
+  </div>
+  <p style="font-size:13px;font-weight:600;margin:12px 0 4px">Health score scale:</p>
+  <div class="info-row" style="margin-top:4px">
+    <span class="info-chip chip-green">90+ excellent</span>
+    <span class="info-chip chip-blue">70-89 good</span>
+    <span class="info-chip chip-amber">50-69 needs work</span>
+    <span class="info-chip chip-coral">&lt;50 urgent</span>
+  </div>
+</div>
+
+<h2>Database views</h2>
+
+<table class="schedule-table">
+  <thead><tr><th>View</th><th>What</th></tr></thead>
+  <tbody>
+    <tr><td>v_brain_health</td><td>Single-row dashboard: totals, untagged, stale, dupes, avg revisions</td></tr>
+    <tr><td>v_tag_health</td><td>Tag frequency with singleton flagging</td></tr>
+    <tr><td>v_stale_items</td><td>Items untouched 30+ days, not done/someday</td></tr>
+    <tr><td>v_most_revised</td><td>Highest revision_count (poor classification signal)</td></tr>
+  </tbody>
+</table>
+
+<h2>Stack</h2>
+
+<table class="schedule-table">
+  <thead><tr><th>Layer</th><th>Tool</th><th>Cost</th></tr></thead>
+  <tbody>
+    <tr><td>Agent</td><td>Node.js on Railway</td><td>~$5/mo</td></tr>
+    <tr><td>AI</td><td>Claude Sonnet 4.6 (Anthropic API)</td><td>~$3-8/mo</td></tr>
+    <tr><td>Embeddings</td><td>OpenAI text-embedding-3-small (512d)</td><td>~$0.50/mo</td></tr>
+    <tr><td>Database</td><td>Supabase (free tier, 500MB)</td><td>Free</td></tr>
+    <tr><td>Webhook</td><td>Twilio (WhatsApp)</td><td>~$1-3/mo</td></tr>
+    <tr><td>Dashboard</td><td>Vercel (Next.js)</td><td>Free</td></tr>
+    <tr><td>Repo</td><td>GitHub (coolbrick-agent)</td><td>Free</td></tr>
+  </tbody>
+</table>
+
+<h2>Quick reference</h2>
+
+<div class="flow-section">
+  <p style="font-size:14px"><strong>Hub:</strong> alancoolbrick.github.io/coolbrick-hub</p>
+  <p style="font-size:14px;margin-top:4px"><strong>Dashboard:</strong> coolbrick-brain-app.vercel.app</p>
+  <p style="font-size:14px;margin-top:4px"><strong>AI Queue:</strong> coolbrick-brain-app.vercel.app/ai-queue</p>
+  <p style="font-size:14px;margin-top:4px"><strong>Repo:</strong> github.com/AlanCoolbrick/coolbrick-agent</p>
+  <p style="font-size:14px;margin-top:4px"><strong>Supabase:</strong> etpadjoejybmgezkfhdz</p>
+</div>
+
+<footer>
+  Coolbrick Brain v2.0 · Control Manual<br>
+  Last updated: 23 March 2026
+</footer>
+
+</body>
+</html>
