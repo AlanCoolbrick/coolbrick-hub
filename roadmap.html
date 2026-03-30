@@ -123,8 +123,8 @@ footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-active">In Progress</span><span class="phase-title">ALAN OS &larr; Brain Dashboard Migration</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Session 1: Foundation &mdash; convert alan-os to Next.js/TypeScript</div><div class="item-meta">Upgrade deps &middot; copy 10 components + 4 API routes from Brain &middot; FocusPanel wrapper &middot; ~2 hrs</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Session 2: Shell integration &mdash; build ALAN OS chrome as React</div><div class="item-meta">Convert patch files to components &middot; wire panel switching &middot; global Cmd+K + ContextWing &middot; ~1.5 hrs</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Session 1: Foundation &mdash; convert alan-os to Next.js/TypeScript</div><div class="item-meta">Upgrade deps &middot; copy 10 components + 4 API routes from Brain &middot; FocusPanel wrapper &middot; 30 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Session 2: Shell integration &mdash; build ALAN OS chrome as React</div><div class="item-meta">Convert patch files to components &middot; wire panel switching &middot; global Cmd+K + ContextWing &middot; 30 Mar</div></div></div>
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Session 3: Polish + deploy</div><div class="item-meta">Delete old files &middot; Vercel env vars &middot; smoke test all panels &middot; update AGENTS.md &middot; ~1 hr</div></div></div>
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">CSS dark-theme adaptation</div><div class="item-meta">Brain light theme &rarr; ALAN OS dark theme &middot; biggest risk in the migration</div></div></div>
 </div>
@@ -192,7 +192,7 @@ footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 <div class="items">
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Build COHO MCP server</div><div class="item-meta">Wrap REST API &middot; replace browser automation &middot; faster + more reliable</div></div></div>
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Hammock API access</div><div class="item-meta">No public API &middot; Finance panel blocked until this exists</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Scheduler deduplication guard</div><div class="item-meta">Digest fires 5x on Railway restart &middot; needs idempotency lock</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Scheduler deduplication guard</div><div class="item-meta">Idempotency lock via claim_scheduler_lock() RPC &middot; 24 Mar</div></div></div>
 </div>
 </div>
 
