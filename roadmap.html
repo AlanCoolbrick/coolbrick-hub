@@ -28,105 +28,174 @@ h1{font-size:26px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px}
 .check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
 .item.done .check{background:var(--green);border-color:var(--green)}
 .item.done .check::after{content:'';width:6px;height:10px;border:solid white;border-width:0 2px 2px 0;transform:rotate(45deg);margin-top:-2px}
-.item-text{flex:1}
-.item-title{font-weight:500}
-.item-meta{font-size:12px;color:var(--text3);margin-top:2px}
-.decision{background:var(--amber-bg);border:1px solid var(--amber);border-radius:10px;padding:14px 18px;margin:20px 0;font-size:14px;color:var(--amber)}
+.decision{background:var(--green-bg);border:1px solid var(--green);border-radius:10px;padding:14px 18px;margin:20px 0;font-size:14px;color:var(--green)}
 .decision strong{display:block;margin-bottom:4px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px}
+.stat{background:var(--bg2);border-radius:8px;padding:10px 14px;text-align:center}
+.stat-val{font-size:22px;font-weight:700}
+.stat-lbl{font-size:11px;color:var(--text3);margin-top:2px}
 footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 </style>
 </head>
 <body>
-<a class="back" href="index.html">← Back to Hub</a>
+<a class="back" href="index.html">&larr; Back to Hub</a>
 <h1>Roadmap</h1>
-<p class="sub">Coolbrick Brain + ALAN OS — updated 23 March 2026</p>
+<p class="sub">Coolbrick Brain + ALAN OS &mdash; updated 30 March 2026</p>
 
-<div class="decision"><strong>Decision due 30 March:</strong> Should ALAN OS merge into the Brain Dashboard, or stay as a separate app? Both are live but only the dashboard is actively developed.</div>
+<div class="stats">
+<div class="stat"><div class="stat-val">156</div><div class="stat-lbl">Brain items</div></div>
+<div class="stat"><div class="stat-val">155</div><div class="stat-lbl">Embedded</div></div>
+<div class="stat"><div class="stat-val">35</div><div class="stat-lbl">AI tasks</div></div>
+<div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Live apps</div></div>
+</div>
 
+<div class="decision"><strong>Decision made 30 March:</strong> ALAN OS absorbs the Brain Dashboard. The Brain Dashboard stays alive as a fallback/admin view. ALAN OS becomes the daily driver. Migration underway &mdash; 3 sessions planned.</div>
+
+<!-- PHASE: FOUNDATION -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-done">Complete</span><span class="phase-title">Foundation</span></div>
 <div class="items">
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">WhatsApp agent on Railway</div><div class="item-meta">Twilio webhook · persistent Node.js · ~$5/mo · 17 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">/save /brief /zoom commands</div><div class="item-meta">Classify + embed · semantic search · Cosmic Zoom · 17 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">512-dim embedding migration</div><div class="item-meta">1536 → 512 · 66% storage saving · HNSW index · 19 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Brain dashboard + ALAN OS deployed</div><div class="item-meta">Vercel · Next.js · Two separate apps · 17–19 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Daily digest + weekly review crons</div><div class="item-meta">7am daily · Sun 9am weekly · Cosmic Zoom on macro items · 17 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Doer classification (human/ai)</div><div class="item-meta">Column + CHECK · classifier prompt · flag_ai_tasks trigger · 19 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Chat mode (conversational RAG)</div><div class="item-meta">Vector search + keyword fallback · 3-turn history · 22 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Voice note transcription (Whisper)</div><div class="item-meta">Audio → transcript → chat mode · 22 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">WhatsApp agent on Railway</div><div class="item-meta">Twilio webhook &middot; persistent Node.js &middot; ~$5/mo &middot; 17 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">/save /brief /zoom /audit commands</div><div class="item-meta">Classify + embed &middot; semantic search &middot; Cosmic Zoom &middot; corpus audit &middot; 17&ndash;23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">512-dim embedding migration</div><div class="item-meta">1536 &rarr; 512 &middot; 66% storage saving &middot; HNSW index &middot; 19 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Brain Dashboard + ALAN OS deployed</div><div class="item-meta">Vercel &middot; Next.js &middot; Two separate apps &middot; 17&ndash;19 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Daily digest + weekly review + meta-review crons</div><div class="item-meta">7am daily &middot; Sun 9am weekly &middot; Sun 9:30am meta-review &middot; 17&ndash;24 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Doer classification (human/ai)</div><div class="item-meta">Column + CHECK &middot; classifier prompt &middot; flag_ai_tasks trigger &middot; 19 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Chat mode (conversational RAG)</div><div class="item-meta">Vector search + keyword fallback &middot; 3-turn history &middot; 22 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Voice note transcription (Whisper)</div><div class="item-meta">Audio &rarr; transcript &rarr; chat mode &middot; 22 Mar</div></div></div>
 </div>
 </div>
 
+<!-- PHASE: AI EXECUTOR -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-done">Complete</span><span class="phase-title">AI Executor</span></div>
 <div class="items">
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">6 executor handlers live on Railway</div><div class="item-meta">research · draft · embed · notify · cleanup · generic · 60s poll · 23 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">AI Queue dashboard page</div><div class="item-meta">/ai-queue · grouped by status · 30s refresh · 23 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Executor tag routing in classifier</div><div class="item-meta">Auto-assigned on /save based on task type · 23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">6 executor handlers live on Railway</div><div class="item-meta">research &middot; draft &middot; embed &middot; notify &middot; cleanup &middot; generic &middot; 60s poll &middot; 23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">AI Queue dashboard page</div><div class="item-meta">/ai-queue &middot; grouped by status &middot; 30s refresh &middot; 23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Executor tag routing in classifier</div><div class="item-meta">Auto-assigned on /save based on task type &middot; 23 Mar</div></div></div>
 </div>
 </div>
 
+<!-- PHASE: SELF-IMPROVING BRAIN -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-done">Complete</span><span class="phase-title">Self-Improving Brain</span></div>
 <div class="items">
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">/audit command — corpus + security audit</div><div class="item-meta">12 diagnostics · Claude analysis · health score · security posture check · 23 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Security hardening — RLS + RPC lockdown</div><div class="item-meta">Removed anon DELETE · restricted INSERT · column protection · locked RPCs · 23 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">revision_count + diagnostic views</div><div class="item-meta">v_brain_health · v_tag_health · v_stale_items · v_most_revised · 23 Mar</div></div></div>
-<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Brain control manual</div><div class="item-meta">All commands · architecture diagram · full system reference · 23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">/audit command &mdash; corpus + security audit</div><div class="item-meta">12 diagnostics &middot; Claude analysis &middot; health score &middot; security posture check &middot; 23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Security hardening &mdash; RLS + RPC lockdown</div><div class="item-meta">Removed anon DELETE &middot; restricted INSERT &middot; column protection &middot; locked RPCs &middot; 23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">revision_count + diagnostic views</div><div class="item-meta">v_brain_health &middot; v_tag_health &middot; v_stale_items &middot; v_most_revised &middot; 23 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Brain control manual</div><div class="item-meta">All commands &middot; architecture diagram &middot; full system reference &middot; 23 Mar</div></div></div>
 </div>
 </div>
 
+<!-- PHASE: MEMORY + IDENTITY -->
+<div class="phase">
+<div class="phase-head"><span class="phase-badge pb-done">Complete</span><span class="phase-title">Memory + Identity Layer</span></div>
+<div class="items">
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Mem0 Platform identity layer seeded</div><div class="item-meta">42 core_memory entries &rarr; Mem0 user alan-coolbrick &middot; 25 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Mem0 weekly backup wired to scheduler</div><div class="item-meta">Sunday 10:00 UTC &middot; auto-commit to GitHub &middot; 25 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Watchdog system (daily self-healing)</div><div class="item-meta">6:45am UTC &middot; logs to Brain inbox &middot; WhatsApp only when human needed &middot; 24 Mar</div></div></div>
+</div>
+</div>
+
+<!-- PHASE: TOOLING + MCP -->
+<div class="phase">
+<div class="phase-head"><span class="phase-badge pb-done">Complete</span><span class="phase-title">Tooling + MCP Connections</span></div>
+<div class="items">
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Antigravity fully MCP'd</div><div class="item-meta">Supabase (20 tools) + GitHub (26 tools) + Context7 (2 tools) &middot; 29 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Claude.ai: Supabase + GitHub MCP</div><div class="item-meta">Connected in this project &middot; Mar 2026</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Claude Desktop: Railway + Supabase + GitHub + Context7 MCP</div><div class="item-meta">Config at ~/Library/Application Support/Claude/ &middot; Mar 2026</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">COHO API integrated (direct REST)</div><div class="item-meta">Properties + rooms + tenancies + maintenance + rent &middot; Bearer auth &middot; Mar 2026</div></div></div>
+</div>
+</div>
+
+<!-- PHASE: ALAN OS LIVE DATA -->
+<div class="phase">
+<div class="phase-head"><span class="phase-badge pb-done">Complete</span><span class="phase-title">ALAN OS Live Data</span></div>
+<div class="items">
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Property panel &mdash; live from COHO API</div><div class="item-meta">property-patch.js &middot; occupancy, rent, room data &middot; 29 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Focus panel &mdash; live from Supabase</div><div class="item-meta">focus-patch.js &middot; inbox/next/waiting/done + doer filter &middot; 29 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">People panel &mdash; live from Supabase</div><div class="item-meta">people-patch.js &middot; contact cards from items &middot; 29 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Action Stream &mdash; live signals</div><div class="item-meta">action-stream-patch.js &middot; Supabase + COHO combined &middot; 29 Mar</div></div></div>
+</div>
+</div>
+
+<!-- PHASE: ALAN OS MIGRATION (ACTIVE) -->
+<div class="phase">
+<div class="phase-head"><span class="phase-badge pb-active">In Progress</span><span class="phase-title">ALAN OS &larr; Brain Dashboard Migration</span></div>
+<div class="items">
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Session 1: Foundation &mdash; convert alan-os to Next.js/TypeScript</div><div class="item-meta">Upgrade deps &middot; copy 10 components + 4 API routes from Brain &middot; FocusPanel wrapper &middot; ~2 hrs</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Session 2: Shell integration &mdash; build ALAN OS chrome as React</div><div class="item-meta">Convert patch files to components &middot; wire panel switching &middot; global Cmd+K + ContextWing &middot; ~1.5 hrs</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Session 3: Polish + deploy</div><div class="item-meta">Delete old files &middot; Vercel env vars &middot; smoke test all panels &middot; update AGENTS.md &middot; ~1 hr</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">CSS dark-theme adaptation</div><div class="item-meta">Brain light theme &rarr; ALAN OS dark theme &middot; biggest risk in the migration</div></div></div>
+</div>
+</div>
+
+<!-- PHASE: THREE-AGENT PIPELINE -->
+<div class="phase">
+<div class="phase-head"><span class="phase-badge pb-active">In Progress</span><span class="phase-title">Three-Agent Pipeline</span></div>
+<div class="items">
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Architecture spec + agent_relay table + missions table</div><div class="item-meta">Gemini Eyes + Claude Brain + Cowork Hands &middot; Supabase coordination &middot; 29 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">2 missions seeded</div><div class="item-meta">Hammock Morning Check (8 steps) &middot; COHO Occupancy Check (7 steps) &middot; 29 Mar</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Wire Gemini agent code to agent_relay</div><div class="item-meta">OpenClaw repo &middot; reads missions &middot; posts observations &middot; awaits decisions</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Wire Cowork as Hands executor</div><div class="item-meta">Reads action commands from relay &middot; drives browser + terminal</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">First end-to-end autonomous mission</div><div class="item-meta">Hammock morning arrears check without Alan touching anything</div></div></div>
+</div>
+</div>
+
+<!-- PHASE: DATA HYGIENE -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-active">In Progress</span><span class="phase-title">Data Hygiene</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Inbox triage — 26 items remaining</div><div class="item-meta">Down from 48 · needs weekly 20-min zero pass</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">39 untagged items</div><div class="item-meta">33% of corpus · degrading filters and automation</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">2 items missing embeddings</div><div class="item-meta">Invisible to semantic search</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Auto-embed executor-completed tasks</div><div class="item-meta">Research/draft handlers should trigger embed after writing</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Embeddings nearly complete</div><div class="item-meta">155 of 156 embedded &middot; 1 remaining &middot; was 20 missing on 22 Mar</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">39 untagged items</div><div class="item-meta">25% of corpus &middot; degrading filters and automation</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Inbox at 1 &mdash; maintain inbox zero habit</div><div class="item-meta">Was 26 on 23 Mar &middot; weekly 20-min triage pass</div></div></div>
 </div>
 </div>
 
+<!-- PHASE: BRAIN INTELLIGENCE -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-next">Next Up</span><span class="phase-title">Brain Intelligence</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">/brief uses items + core_memory together</div><div class="item-meta">Currently only searches items · core_memory has identity/property/contact context</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Cross-reference People → Areas → Projects</div><div class="item-meta">Surface related context across types automatically</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Historical health_score trend</div><div class="item-meta">Compare audit entries over time · detect improvement or regression</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Classification feedback loop</div><div class="item-meta">High revision_count → auto-adjust classifier prompt</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Auto-execute trivial audit fixes</div><div class="item-meta">Singleton cleanup · archive stale items · needs WhatsApp confirmation</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">/brief uses items + core_memory together</div><div class="item-meta">Currently only searches items &middot; core_memory has identity/property/contact context</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Cross-reference People &rarr; Areas &rarr; Projects</div><div class="item-meta">Surface related context across types automatically</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Classification feedback loop</div><div class="item-meta">High revision_count &rarr; auto-adjust classifier prompt</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Auto-execute trivial audit fixes</div><div class="item-meta">Singleton cleanup &middot; archive stale items &middot; needs WhatsApp confirmation</div></div></div>
 </div>
 </div>
 
+<!-- PHASE: NEW CAPABILITIES -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-next">Next Up</span><span class="phase-title">New Capabilities</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">PDF ingestion pipeline</div><div class="item-meta">Extract → Claude structures to JSON → embed → store</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">YouTube auto-vectorise on /save with URL</div><div class="item-meta">Detect YouTube URLs · extract transcript · embed</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">/remind command</div><div class="item-meta">Natural language date parsing · scheduled WhatsApp notifications</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Burkeman Mode (/burkeman)</div><div class="item-meta">Anti-optimisation weekly review · Sun 6pm · Opus model · spec ready</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Claude session → Supabase auto-push</div><div class="item-meta">Auto-save reference entries after working sessions</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">PDF ingestion pipeline</div><div class="item-meta">Extract &rarr; Claude structures to JSON &rarr; embed &rarr; store</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">YouTube auto-vectorise on /save with URL</div><div class="item-meta">Detect YouTube URLs &middot; youtube-transcript.io &middot; embed</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">/remind command</div><div class="item-meta">Natural language date parsing &middot; scheduled WhatsApp notifications</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Burkeman Mode (/burkeman)</div><div class="item-meta">Anti-optimisation weekly review &middot; Sun 6pm &middot; Opus model &middot; spec ready</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Custom domain for ALAN OS</div><div class="item-meta">os.coolbrick.com &middot; Vercel custom domain setup</div></div></div>
 </div>
 </div>
 
+<!-- PHASE: KNOWLEDGE LAYER -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-future">Future</span><span class="phase-title">Knowledge Layer</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Gmail + Calendar + transactions ingestion</div><div class="item-meta">knowledge_chunks + transactions tables · architecture doc ready</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Tenant triage bot via COHO messaging</div><div class="item-meta">Awaiting COHO messaging API response · RAG against property manuals</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">COHO maintenance auto-triage via API</div><div class="item-meta">Classify requests · route to John · scheduled in brain</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Gmail + Calendar + transactions ingestion</div><div class="item-meta">knowledge_chunks + transactions tables &middot; architecture doc ready</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Screenpipe for persistent visual memory</div><div class="item-meta">Phase 2 of three-agent pipeline &middot; screen observation context</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Tenant triage bot via COHO messaging</div><div class="item-meta">Awaiting COHO messaging API response &middot; RAG against property manuals</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">COHO maintenance auto-triage via API</div><div class="item-meta">Classify requests &middot; route to John &middot; scheduled in Brain</div></div></div>
 </div>
 </div>
 
+<!-- PHASE: INFRASTRUCTURE -->
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-future">Future</span><span class="phase-title">Infrastructure</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Build COHO MCP server</div><div class="item-meta">Wrap REST API · replace browser automation · faster + more reliable</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Investigate Hammock API access</div><div class="item-meta">No public docs · email hello@usehammock.com</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Fix Vercel MCP connection</div><div class="item-meta">Package name issues · parked</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Refresh Railway MCP token</div><div class="item-meta">Needs railway login on Mac · Claude Desktop only</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Build COHO MCP server</div><div class="item-meta">Wrap REST API &middot; replace browser automation &middot; faster + more reliable</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Hammock API access</div><div class="item-meta">No public API &middot; Finance panel blocked until this exists</div></div></div>
+<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Scheduler deduplication guard</div><div class="item-meta">Digest fires 5x on Railway restart &middot; needs idempotency lock</div></div></div>
 </div>
 </div>
 
-<footer>Coolbrick Brain + ALAN OS Roadmap<br>Last updated: 23 March 2026</footer>
+<footer>Coolbrick Brain + ALAN OS Roadmap<br>Last updated: 30 March 2026</footer>
 </body>
 </html>
