@@ -43,9 +43,9 @@ footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 <p class="sub">Coolbrick Brain + ALAN OS &mdash; updated 31 March 2026</p>
 
 <div class="stats">
-<div class="stat"><div class="stat-val">162</div><div class="stat-lbl">Brain items</div></div>
-<div class="stat"><div class="stat-val">161</div><div class="stat-lbl">Embedded</div></div>
-<div class="stat"><div class="stat-val">36</div><div class="stat-lbl">AI tasks</div></div>
+<div class="stat"><div class="stat-val">39</div><div class="stat-lbl">Active items</div></div>
+<div class="stat"><div class="stat-val">37</div><div class="stat-lbl">Embedded</div></div>
+<div class="stat"><div class="stat-val">10</div><div class="stat-lbl">Commands</div></div>
 <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Live apps</div></div>
 </div>
 
@@ -147,8 +147,8 @@ footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 <div class="phase-head"><span class="phase-badge pb-active">In Progress</span><span class="phase-title">Data Hygiene</span></div>
 <div class="items">
 <div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Embeddings nearly complete</div><div class="item-meta">155 of 156 embedded &middot; 1 remaining &middot; was 20 missing on 22 Mar</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">39 untagged items</div><div class="item-meta">25% of corpus &middot; degrading filters and automation</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Inbox at 1 &mdash; maintain inbox zero habit</div><div class="item-meta">Was 26 on 23 Mar &middot; weekly 20-min triage pass</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Untagged items cleaned</div><div class="item-meta">Was 39 untagged (25% of corpus) &middot; all active items now tagged &middot; 30 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Inbox at 0 &mdash; inbox zero maintained</div><div class="item-meta">Was 26 on 23 Mar &middot; currently 0 &middot; weekly triage pass</div></div></div>
 </div>
 </div>
 
@@ -156,10 +156,10 @@ footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-next">Next Up</span><span class="phase-title">Brain Intelligence</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">/brief uses items + core_memory together</div><div class="item-meta">Currently only searches items &middot; core_memory has identity/property/contact context</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">/brief uses items + core_memory together</div><div class="item-meta">Parallel query &middot; core_memory grouped by category &middot; shipped 25 Mar</div></div></div>
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Cross-reference People &rarr; Areas &rarr; Projects</div><div class="item-meta">Surface related context across types automatically</div></div></div>
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Classification feedback loop</div><div class="item-meta">High revision_count &rarr; auto-adjust classifier prompt</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Auto-execute trivial audit fixes</div><div class="item-meta">Singleton cleanup &middot; archive stale items &middot; needs WhatsApp confirmation</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Auto-archive done items + auto-dedup</div><div class="item-meta">Watchdog self-heals: archives done-not-archived &middot; deduplicates by title &middot; 31 Mar</div></div></div>
 </div>
 </div>
 
@@ -168,9 +168,9 @@ footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 <div class="phase-head"><span class="phase-badge pb-next">Next Up</span><span class="phase-title">New Capabilities</span></div>
 <div class="items">
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">PDF ingestion pipeline</div><div class="item-meta">Extract &rarr; Claude structures to JSON &rarr; embed &rarr; store</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">YouTube auto-vectorise on /save with URL</div><div class="item-meta">Detect YouTube URLs &middot; youtube-transcript.io &middot; embed</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">/remind command</div><div class="item-meta">Natural language date parsing &middot; scheduled WhatsApp notifications</div></div></div>
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Burkeman Mode (/burkeman)</div><div class="item-meta">Anti-optimisation weekly review &middot; Sun 6pm &middot; Opus model &middot; spec ready</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">YouTube auto-vectorise on /save with URL</div><div class="item-meta">Detect YouTube URLs &middot; fetch transcript &middot; embed &middot; shipped 30 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">/remind command</div><div class="item-meta">Natural language date parsing &middot; 15-min cron check &middot; WhatsApp delivery &middot; shipped 30 Mar</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Burkeman Mode (/burkeman)</div><div class="item-meta">Sunday 6pm UTC reflection &middot; queries week activity + focus + core_memory &middot; shipped 31 Mar</div></div></div>
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Custom domain for ALAN OS</div><div class="item-meta">os.coolbrick.com &middot; Vercel custom domain setup</div></div></div>
 </div>
 </div>
@@ -190,7 +190,7 @@ footer{text-align:center;margin-top:48px;font-size:11px;color:var(--text3)}
 <div class="phase">
 <div class="phase-head"><span class="phase-badge pb-future">Future</span><span class="phase-title">Infrastructure</span></div>
 <div class="items">
-<div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Build COHO MCP server</div><div class="item-meta">Wrap REST API &middot; replace browser automation &middot; faster + more reliable</div></div></div>
+<div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">COHO MCP server built</div><div class="item-meta">10 tools wrapping REST API &middot; installable in Claude Desktop/Antigravity &middot; shipped 30 Mar</div></div></div>
 <div class="item"><div class="check"></div><div class="item-text"><div class="item-title">Hammock API access</div><div class="item-meta">No public API &middot; Finance panel blocked until this exists</div></div></div>
 <div class="item done"><div class="check"></div><div class="item-text"><div class="item-title">Scheduler deduplication guard</div><div class="item-meta">Idempotency lock via claim_scheduler_lock() RPC &middot; 24 Mar</div></div></div>
 </div>
