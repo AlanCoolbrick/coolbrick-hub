@@ -141,7 +141,7 @@
 
   <div class="cmd-card blue">
     <div class="cmd-name">/brief [topic]</div>
-    <div class="cmd-desc">Semantic search the brain for a topic. Embeds your query, searches via pgvector, returns the top 6 matches formatted as a context block you can paste into a Claude session.</div>
+    <div class="cmd-desc">Semantic search the brain for a topic. Embeds your query, searches items via pgvector, and loads matching core_memory entries (identity, contacts, properties). Returns the top matches as a context block you can paste into a Claude session.</div>
     <div class="cmd-example">/brief fire doors</div>
   </div>
 
@@ -164,6 +164,36 @@
   </div>
 
   <div class="cmd-card">
+    <div class="cmd-name">/remind [what] [when]</div>
+    <div class="cmd-desc">Set a reminder with natural language. Parses the date via Claude, stores a scheduled item, and fires it as a WhatsApp message when due (checked every 15 minutes).</div>
+    <div class="cmd-example">/remind call Kieran about CGT tomorrow 2pm</div>
+  </div>
+
+  <div class="cmd-card">
+    <div class="cmd-name">/status</div>
+    <div class="cmd-desc">Instant brain health snapshot. Shows active item count, inbox, focus, missing embeddings, AI queue, reminders, and last WhatsApp capture age. No Claude call &mdash; pure data, fast.</div>
+    <div class="cmd-example">/status</div>
+  </div>
+
+  <div class="cmd-card blue">
+    <div class="cmd-name">/coho</div>
+    <div class="cmd-desc">Instant COHO portfolio snapshot via API. Shows occupancy percentage, void rooms by property, and open maintenance count. No Claude call &mdash; direct API query.</div>
+    <div class="cmd-example">/coho</div>
+  </div>
+
+  <div class="cmd-card purple">
+    <div class="cmd-name">/burkeman</div>
+    <div class="cmd-desc">Sunday philosophical reflection. Queries the week's brain activity, focus items, and core memory, then generates a short, honest reflection on what truly matters. Also fires automatically Sunday 6pm UTC.</div>
+    <div class="cmd-example">/burkeman</div>
+  </div>
+
+  <div class="cmd-card">
+    <div class="cmd-name">/help</div>
+    <div class="cmd-desc">Lists all available commands with one-line descriptions.</div>
+    <div class="cmd-example">/help</div>
+  </div>
+
+  <div class="cmd-card">
     <div class="cmd-name">(any text)</div>
     <div class="cmd-desc">Chat mode. Conversational RAG against the brain. Embeds your message, retrieves matching items, answers based only on what's in the brain. Suggests /save if context is thin.</div>
     <div class="cmd-example">What do I know about HMO Article 4?</div>
@@ -180,9 +210,14 @@
 <table class="schedule-table">
   <thead><tr><th>Schedule</th><th>Time (UTC)</th><th>What</th></tr></thead>
   <tbody>
+    <tr><td>Watchdog</td><td>06:45 daily</td><td>Self-healing health check: backfills embeddings, releases stale claims, auto-archives done items, deduplicates, auto-merges branches</td></tr>
+    <tr><td>Roadmap stats</td><td>06:50 daily</td><td>Updates roadmap live stats from Supabase</td></tr>
     <tr><td>Daily digest</td><td>07:00 daily</td><td>Summary of brain activity to WhatsApp</td></tr>
     <tr><td>Weekly review</td><td>09:00 Sunday</td><td>Full review + Cosmic Zoom on macro items</td></tr>
     <tr><td>Brain audit</td><td>09:30 Sunday</td><td>Corpus health + security posture</td></tr>
+    <tr><td>Mem0 backup</td><td>10:00 Sunday</td><td>Weekly identity memory backup to GitHub</td></tr>
+    <tr><td>Burkeman</td><td>18:00 Sunday</td><td>Philosophical reflection on the week</td></tr>
+    <tr><td>Reminders</td><td>Every 15 min</td><td>Fires due reminders via WhatsApp</td></tr>
     <tr><td>Keep-alive</td><td>Every 4 hours</td><td>Supabase ping (prevents free-tier auto-pause)</td></tr>
   </tbody>
 </table>
